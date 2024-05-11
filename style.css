@@ -16,7 +16,11 @@ main {
   flex-direction: column;
 }
 
-.latar > img {
+
+.latar #imgLatar{
+  width: 100%;
+  height: 80vh;
+  filter: blur(2px);
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -27,13 +31,22 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
 }
 
 form {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+}
+
+.wrapper-logo{
+  display: flex;
+  justify-content: center;
+}
+
+.logo{
+  filter: contrast(100%);
+  filter: drop-shadow(3px 5px 3px);
 }
 
 input {
@@ -45,6 +58,12 @@ input:hover {
  border: 1px solid rgb(46, 187, 168);
 }
 
+#answer{
+  position: absolute;
+  bottom: 50%;
+  z-index: 3;
+  display: none;
+}
 
 ul {
   padding: 1rem 2rem;
@@ -95,7 +114,27 @@ li {
   filter: drop-shadow(5px 1px 2px);
 }
 
+#sectionDialog{
+padding-left: 1rem;
+}
+
 .dialog{
   height: 20vh;
   background: #eeffb2;
+}
+
+.text-dialog{
+  padding-top: .2rem;
+}
+
+@media (max-width : 800px) {
+.wrapper-button{
+  display: flex;
+}
+
+  #buttonSpeed,
+#buttonNext {
+  height: 70%;
+  padding: 8px 4px;
+}
 }

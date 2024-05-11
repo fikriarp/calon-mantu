@@ -12,10 +12,86 @@ const inputName = document.getElementById("inputName"),
   question = document.getElementById("question"),
   bgm = document.getElementById("bgm"),
   audioClick = document.getElementById("audioClick"),
-  listQuestion = document.querySelectorAll("li");
+  answer = document.getElementById("answer"),
+  characterName = document.getElementById("characterName"),
+  buttonAnswer = document.getElementById("buttonAnswer"),
+  answerInput = document.getElementById("answerInput"),
+  listQuestion = document.querySelectorAll("li"),
+  logoWrapper = document.querySelector(".wrapper-logo");
+
+const USER_KEY = "users";
+
+const character = ["Darling", "Om Papa"]; 
+
+const jurusanKuliahPopuler = [
+  "Teknik",
+  "Informatika",
+  "ilmu",
+  "Komputer",
+  "Elektro",
+  "Mesin",
+  "Sipil",
+  "Kedokteran",
+  "Hukum",
+  "Ekonomi",
+  "Psikologi",
+  "Arsitektur",
+  "Desain",
+  "Grafis",
+  "Akuntansi",
+  "Manajemen",
+  "Bisnis",
+  "Pendidikan",
+  "Farmasi",
+  "Hubungan"
+];
 
 
-USER_KEY = "users";
+let populer = false;
+
+// Pertanyaan kuliah
+buttonAnswer.addEventListener('click', function(){
+  audioClick.play();
+})
+
+answer.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const input = answerInput.value;
+  let words = input.split(" ");
+
+  for (let i = 0; i <= words.length; i++) {
+    let check = words[i];
+    let firstCheckerWord = jurusanKuliahPopuler.find(
+      (jurusan) => jurusan.toLowerCase() === check
+    );
+    console.log(firstCheckerWord);
+    if (firstCheckerWord) {
+      answer.style.display = "none"
+      buttonNext.style.display = "inline"
+      // Cek apakah kata ditemukan
+      populer = true;
+      dialogData.push({
+        dialog: `Wah jurasan kamu sedang banyak dibutuhkan perusahaan`,
+        character: "/assets/ayah.png",
+        bg: "/assets/familyroom.jpg",
+      })
+      break; // Menghentikan looping setelah ditemukan kata yang sesuai
+    }
+   else if (!populer && firstCheckerWord == undefined) {
+      answer.style.display = "none"
+      buttonNext.style.display = "inline"
+      // Cek apakah kata ditemukan
+      dialogData.push({
+        dialog: `Baru dengar saya, itu pasti kurang dibutuhkan perusahan`,
+        character: "/assets/ayah.png",
+        bg: "/assets/familyroom.jpg",
+      })
+      break; // Menghentikan looping setelah ditemukan kata yang sesuai
+    }
+  }
+  i++
+  dialogDua()
+});
 
 let users = [];
 let i = -1;
@@ -28,6 +104,11 @@ let dialog = new Typed("#typed", {
   typeSpeed: 50,
   onComplete: function () {},
 });
+
+
+
+
+
 
 function dialogDua() {
   dialog.reset();
@@ -46,23 +127,31 @@ function dialogDua() {
     question.style.display = "none";
   }
 
-  if(i == 5){
-    bgm.src = "/assets/familyRoom.mp3"
+  if (i == 5) {
+    bgm.src = "/assets/familyRoom.mp3";
     bgm.load();
+  } else if(i == 10){
+    buttonNext.style.display = "none"
+  }
+
+  // Mengubah nama charcter di Dialog
+  if(i == 0){
+    characterName.innerText = character[0]
   }
 }
 
-listQuestion[0].addEventListener('click', function(){
-  audioClick.play()
-})
-listQuestion[1].addEventListener('click', function(){
-  audioClick.play()
-})
-listQuestion[2].addEventListener('click', function(){
-  audioClick.play()
-})
+listQuestion[0].addEventListener("click", function () {
+  audioClick.play();
+});
+listQuestion[1].addEventListener("click", function () {
+  audioClick.play();
+});
+listQuestion[2].addEventListener("click", function () {
+  audioClick.play();
+});
 
 question.addEventListener("click", function (e) {
+  buttonNext.style.display = "none"
   if (
     e.target.textContent == "A. " + dialogData[i].pertanyaan[0] ||
     e.target.textContent == "B. " + dialogData[i].pertanyaan[1] ||
@@ -82,33 +171,33 @@ question.addEventListener("click", function (e) {
           bg: "/assets/familyroom.jpg",
           pertanyaan: ["Kuliah", "Kerja", "Pengagguran"],
         });
+        buttonNext.style.display = "none"
         i++;
         dialogDua();
       }
       if (jawaban == "A. Kuliah") {
+        answer.style.display = "flex"
         dialogData.push({
-          dialog: `${name} Kuliah, ga mau sambil Kerja?`,
+          dialog: `Kamu jurusan apa memangnya?`,
           character: "/assets/ayah.png",
           bg: "/assets/familyroom.jpg",
         });
-      } else if(jawaban == "B. Kerja"){
+      } else if (jawaban == "B. Kerja") {
         dialogData.push({
           dialog: `kenapa ${name} tidak kuliah?`,
           character: "/assets/ayah.png",
           bg: "/assets/familyroom.jpg",
         });
       }
+
       i++;
       dialogDua();
     });
     console.log(jawaban);
-    // i++;
-    // dialogDua();
   }
 });
 
 buttonNext.addEventListener("click", function () {
-  buttonNext.style.display = "none";
   i++;
   dialogDua();
   audioClick.play();
@@ -132,6 +221,8 @@ function saveData() {
   sessionStorage.setItem(USER_KEY, JSON.stringify(users));
 }
 
+
+// Submit User
 formUser.addEventListener("submit", (e) => {
   e.preventDefault();
   audioClick.play();
@@ -149,7 +240,7 @@ formUser.addEventListener("submit", (e) => {
     console.log("pria");
     i++;
     bgm.src = "/assets/musikPertemuan.mp3";
-bgm.load();
+    bgm.load();
     addUser(name, gender, old);
     users.forEach((user) => {
       const { name, gender, old } = user;
@@ -187,7 +278,7 @@ bgm.load();
         dialog: `Kenapa baru sekarang ke rumah`,
         character: "/assets/ayah.png",
         bg: "/assets/familyroom.jpg",
-        pertanyaan: ["mager", "Ga Ada kendaran", "Belum dapat waktu yang pas"],   
+        pertanyaan: ["mager", "Ga Ada kendaran", "Belum dapat waktu yang pas"],
       });
       dialogData.push({
         dialog: `Alasan saja, Emangnya kamu Kuliah atau Bekerja?`,
@@ -199,10 +290,11 @@ bgm.load();
       imgCharacter.setAttribute("src", dialogData[i].character);
       formUser.style.display = "none";
     });
-  } else if (gender.toLowerCase() === "wanita"){
-    alert("Belum tersedia, Mohon isi gender dengan Pria")
+  } else if (gender.toLowerCase() === "wanita") {
+    alert("Belum tersedia, Mohon isi gender dengan Pria");
   }
-
+  logoWrapper.style.display = "none"
+  imgLatar.style.filter = "blur(0)";
 });
 
 function addUser(name, gender, old, jawaban) {

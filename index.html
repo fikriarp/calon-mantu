@@ -11,6 +11,9 @@
     <main>
       <section class="latar">
         <img id="imgLatar" src="/assets/house.jpg" alt="">
+        <div class="wrapper-logo">
+          <img class="logo" src="/assets/logo.png" alt="">
+        </div>
         <article class="pertanyaan">
             <form id="formUser">
                 <input id="inputName" type="text" placeholder="Nama" required>
@@ -18,6 +21,11 @@
                 <input id="inputOld" type="number" placeholder="Usia" required>
                 <button id="buttonSubmit" type="submit">Submit</button>
             </form>
+            <form id="answer">
+              <input id="answerInput" type="text" placeholder="Jurusan" required>
+              <button id="buttonAnswer" type="submit"> Submit </button>
+            </form>
+
           <ul id="question">
             <li>A. Lorem ipsum dolor sit amet.</li>
             <li>B. Lorem ipsum dolor, sit amet consectetur adipisicing.</li>
@@ -34,10 +42,9 @@
           <button id="buttonNext">Next</button>
         </div>
         </div>
-        
       </section>
       <section id="sectionDialog" class="dialog">
-        <h3>charcter</h3>
+        <h3 id="characterName">Prolog</h3>
         <p id="typed" class="text-dialog"></p>
       </section>
     </main>
