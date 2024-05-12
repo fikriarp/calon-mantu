@@ -21,12 +21,12 @@ const inputName = document.getElementById("inputName"),
 
 const USER_KEY = "users";
 
-const character = ["Darling", "Om Papa"]; 
+const character = ["Darling", "Camer"]; 
 
 const jurusanKuliahPopuler = [
   "Teknik",
   "Informatika",
-  "ilmu",
+  "Ilmu",
   "Komputer",
   "Elektro",
   "Mesin",
@@ -43,7 +43,10 @@ const jurusanKuliahPopuler = [
   "Bisnis",
   "Pendidikan",
   "Farmasi",
-  "Hubungan"
+  "Hubungan",
+  "Kimia",
+  "Fisika",
+  "DKV"
 ];
 
 
@@ -55,10 +58,16 @@ buttonAnswer.addEventListener('click', function(){
 })
 
 answer.addEventListener("submit", function (e) {
+
   e.preventDefault();
   const input = answerInput.value;
   let words = input.split(" ");
-
+  const name = inputName.value;
+    const old = inputOld.value;
+    
+    addUser(name, old);
+    users.forEach((user) => {
+      const { name, gender, old, jawaban } = user;
   for (let i = 0; i <= words.length; i++) {
     let check = words[i];
     let firstCheckerWord = jurusanKuliahPopuler.find(
@@ -68,10 +77,21 @@ answer.addEventListener("submit", function (e) {
     if (firstCheckerWord) {
       answer.style.display = "none"
       buttonNext.style.display = "inline"
+      console.log(firstCheckerWord)
       // Cek apakah kata ditemukan
       populer = true;
       dialogData.push({
         dialog: `Wah jurasan kamu sedang banyak dibutuhkan perusahaan`,
+        character: "/assets/ayah.png",
+        bg: "/assets/familyroom.jpg",
+      })
+      dialogData.push({
+        dialog: `semoga lancar kuliahnya ya`,
+        character: "/assets/ayah.png",
+        bg: "/assets/familyroom.jpg",
+      })
+      dialogData.push({
+        dialog: `Nak, tolong buatkan teh untuk ${name}`,
         character: "/assets/ayah.png",
         bg: "/assets/familyroom.jpg",
       })
@@ -92,6 +112,7 @@ answer.addEventListener("submit", function (e) {
   i++
   dialogDua()
 });
+})
 
 let users = [];
 let i = -1;
@@ -105,10 +126,18 @@ let dialog = new Typed("#typed", {
   onComplete: function () {},
 });
 
-
-
-
-
+function gameOver(detik){
+  setTimeout(function(){
+    const main = document.querySelector("main");
+   main.innerHTML = `<div class="wrapper-nt">
+   <img class="nt-on" src="/assets/nt.png" alt="">
+  </div>`;
+    main.style.background = "#333"
+    main.style.display ="flex"
+    main.style.justifyContent ="center"
+    main.style.alignContent ="center"
+  }, detik)
+} 
 
 function dialogDua() {
   dialog.reset();
@@ -130,7 +159,8 @@ function dialogDua() {
   if (i == 5) {
     bgm.src = "/assets/familyRoom.mp3";
     bgm.load();
-  } else if(i == 10){
+    characterName.innerText = character[1];
+  } else if(i == 8){
     buttonNext.style.display = "none"
   }
 
@@ -161,10 +191,19 @@ question.addEventListener("click", function (e) {
     const gender = inputGender.value;
     const old = inputOld.value;
     const jawaban = e.target.textContent;
+    console.log(jawaban)
     addUser(name, gender, old, jawaban);
     users.forEach((user) => {
       const { name, gender, old, jawaban } = user;
-      if (jawaban) {
+      if(jawaban == "A. Mager"){
+        dialogData.push({
+          dialog: `Ga sopan kali kau`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        gameOver(1750);
+      } else if (jawaban == "B. Ga Ada kendaraan" 
+      || jawaban == "C. Belum dapat waktu yang pas"){
         dialogData.push({
           dialog: `Alasan saja, Emangnya kamu Kuliah atau Bekerja?`,
           character: "/assets/ayah.png",
@@ -172,10 +211,10 @@ question.addEventListener("click", function (e) {
           pertanyaan: ["Kuliah", "Kerja", "Pengagguran"],
         });
         buttonNext.style.display = "none"
-        i++;
-        dialogDua();
-      }
+      } 
+      
       if (jawaban == "A. Kuliah") {
+        console.log(jawaban)
         answer.style.display = "flex"
         dialogData.push({
           dialog: `Kamu jurusan apa memangnya?`,
@@ -184,12 +223,18 @@ question.addEventListener("click", function (e) {
         });
       } else if (jawaban == "B. Kerja") {
         dialogData.push({
-          dialog: `kenapa ${name} tidak kuliah?`,
+          dialog: `Bekerja dimana ?`,
           character: "/assets/ayah.png",
           bg: "/assets/familyroom.jpg",
         });
+      } else if (jawaban == "C. Pengagguran") {
+        dialogData.push({
+          dialog: `Mending Kamu cari kegiatan dulu`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        gameOver(2500)
       }
-
       i++;
       dialogDua();
     });
@@ -220,7 +265,6 @@ buttonNext.style.display = "none";
 function saveData() {
   sessionStorage.setItem(USER_KEY, JSON.stringify(users));
 }
-
 
 // Submit User
 formUser.addEventListener("submit", (e) => {
@@ -278,14 +322,9 @@ formUser.addEventListener("submit", (e) => {
         dialog: `Kenapa baru sekarang ke rumah`,
         character: "/assets/ayah.png",
         bg: "/assets/familyroom.jpg",
-        pertanyaan: ["mager", "Ga Ada kendaran", "Belum dapat waktu yang pas"],
+        pertanyaan: ["Mager", "Ga Ada kendaraan", "Belum dapat waktu yang pas"],
       });
-      dialogData.push({
-        dialog: `Alasan saja, Emangnya kamu Kuliah atau Bekerja?`,
-        character: "/assets/ayah.png",
-        bg: "/assets/familyroom.jpg",
-        pertanyaan: ["Kuliah", "Kerja", "Pengagguran"],
-      });
+      
       dialogDua(name);
       imgCharacter.setAttribute("src", dialogData[i].character);
       formUser.style.display = "none";
