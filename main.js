@@ -62,14 +62,15 @@ answer.addEventListener("submit", function (e) {
   e.preventDefault();
   const input = answerInput.value;
   let words = input.split(" ");
+  const wordsLower = words.map(e => e.toLowerCase())
   const name = inputName.value;
     const old = inputOld.value;
     
     addUser(name, old);
     users.forEach((user) => {
       const { name, gender, old, jawaban } = user;
-  for (let i = 0; i <= words.length; i++) {
-    let check = words[i].toLowerCase();
+  for (let i = 0; i <= wordsLower.length; i++) {
+    let check = wordsLower[i];
     let firstCheckerWord = jurusanKuliahPopuler.find(
       (jurusan) => jurusan.toLowerCase() === check
     );
