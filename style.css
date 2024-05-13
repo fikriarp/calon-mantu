@@ -2,7 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Playfair Display", serif;
+  font-style: normal;
 }
+
 
 main {
   height: 100vh;
@@ -39,9 +42,14 @@ form {
   flex-direction: column;
 }
 
-.wrapper-logo{
+.wrapper-logo, .wrapper-object{
   display: flex;
   justify-content: center;
+}
+
+.wrapper-object{
+  display: none;
+  animation: transparan 1s ease-in;
 }
 
 .wrapper-nt{
@@ -50,9 +58,13 @@ form {
   height: 100vh;
 }
 
-.logo, .nt{
+.logo, .nt, .object{
   filter: contrast(100%);
   filter: drop-shadow(3px 5px 3px);
+}
+
+.object{
+  width: 200px;
 }
 
 .nt{
@@ -160,5 +172,11 @@ padding-left: 1rem;
 #buttonNext {
   height: 70%;
   padding: 8px 4px;
+}
+
+.object{
+  position: absolute;
+  z-index: 2;
+  bottom: 2%;
 }
 }

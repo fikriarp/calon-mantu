@@ -12,6 +12,8 @@ const inputName = document.getElementById("inputName"),
   question = document.getElementById("question"),
   bgm = document.getElementById("bgm"),
   audioClick = document.getElementById("audioClick"),
+  audioObject = document.getElementById("audioObject"),
+  soundObject = document.getElementById("soundObject"),
   answer = document.getElementById("answer"),
   characterName = document.getElementById("characterName"),
   buttonAnswer = document.getElementById("buttonAnswer"),
@@ -52,13 +54,12 @@ const jurusanKuliahPopuler = [
 
 let populer = false;
 
-// Pertanyaan kuliah
+// Ketika memilih kuliah
 buttonAnswer.addEventListener('click', function(){
   audioClick.play();
 })
 
 answer.addEventListener("submit", function (e) {
-
   e.preventDefault();
   const input = answerInput.value;
   let words = input.split(" ");
@@ -79,7 +80,6 @@ answer.addEventListener("submit", function (e) {
       answer.style.display = "none"
       buttonNext.style.display = "inline"
       console.log(firstCheckerWord)
-      // Cek apakah kata ditemukan
       populer = true;
       dialogData.push({
         dialog: `Wah jurasan kamu sedang banyak dibutuhkan perusahaan`,
@@ -96,7 +96,37 @@ answer.addEventListener("submit", function (e) {
         character: "/assets/ayah.png",
         bg: "/assets/familyroom.jpg",
       })
-      break; // Menghentikan looping setelah ditemukan kata yang sesuai
+      dialogData.push({
+        dialog: `Iya Ayah ini lagi dibuat`,
+        character: "/assets/wanita.png",
+        bg: "/assets/kitchen.jpg",
+        })
+        dialogData.push({
+          dialog: `"Ting.. Ting.. Ting.." (Menagaduk Teh)`,
+          character: "/assets/wanita.png",
+          bg: "/assets/kitchen.jpg",
+          })
+        dialogData.push({
+          dialog: `Selesai`,
+          character: "/assets/wanita.png",
+          bg: "/assets/kitchen.jpg",
+          })
+        dialogData.push({
+          dialog: `ini Tehnya`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+          })
+        dialogData.push({
+          dialog: `Silahkan diminum ${name}`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+          })
+        dialogData.push({
+          dialog: `Semoga kamu suka ya`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+          })
+        break; // Menghentikan looping setelah ditemukan kata yang sesuai
     }
    else if (!populer && firstCheckerWord == undefined) {
       answer.style.display = "none"
@@ -166,11 +196,31 @@ function dialogDua() {
   }
 
   // Mengubah nama charcter di Dialog
-  if(i == 0){
-    characterName.innerText = character[0]
+  if(i == 0 || i == 12){
+    characterName.innerText = character[0];
+  } else if(i == 16) {
+    characterName.innerText = character[1];
   }
+
+
+
+  // memunculkan object
+  if(i == 14){
+    // TeH
+    document.querySelector('.object')
+    .src = "/assets/tea.png";
+    document.querySelector('.wrapper-object')
+    .style.display = "flex";
+    audioObject.play();
+  } else if (i == 15){
+    document.querySelector('.wrapper-object')
+    .style.display = "none";
+  }
+
+
 }
 
+// List Pertanyaan sound klik
 listQuestion[0].addEventListener("click", function () {
   audioClick.play();
 });
@@ -181,6 +231,7 @@ listQuestion[2].addEventListener("click", function () {
   audioClick.play();
 });
 
+// Menjawab Pertanyaan 
 question.addEventListener("click", function (e) {
   buttonNext.style.display = "none"
   if (
@@ -224,7 +275,7 @@ question.addEventListener("click", function (e) {
         });
       } else if (jawaban == "B. Kerja") {
         dialogData.push({
-          dialog: `Bekerja dimana ?`,
+          dialog: `Bekerja dimana?`,
           character: "/assets/ayah.png",
           bg: "/assets/familyroom.jpg",
         });
@@ -243,6 +294,7 @@ question.addEventListener("click", function (e) {
   }
 });
 
+// Next
 buttonNext.addEventListener("click", function () {
   i++;
   dialogDua();
@@ -267,7 +319,7 @@ function saveData() {
   sessionStorage.setItem(USER_KEY, JSON.stringify(users));
 }
 
-// Submit User
+// Submit User Awal Permainan
 formUser.addEventListener("submit", (e) => {
   e.preventDefault();
   audioClick.play();

@@ -6,28 +6,55 @@
     <title>Calon Menantu</title>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <main>
       <section class="latar">
-        <img id="imgLatar" src="/assets/house.jpg" alt="">
+        <img id="imgLatar" src="/assets/house.jpg" alt="" />
         <div class="wrapper-logo">
-          <img class="logo" src="/assets/logo.png" alt="">
+          <img class="logo" src="/assets/logo.png" alt="" />
+        </div>
+        <div class="wrapper-object">
+          <img class="object" src="" alt="" />
         </div>
         <div class="wrapper-nt">
-          <img class="nt" src="/assets/nt.png" alt="">
+          <img class="nt" src="/assets/nt.png" alt="" />
         </div>
         <article class="pertanyaan">
-            <form id="formUser">
-                <input id="inputName" type="text" placeholder="Nama" required>
-                <input id="inputGender" type="text" placeholder="Pria/Wanita" required>
-                <input id="inputOld" type="number" placeholder="Usia" required>
-                <button id="buttonSubmit" type="submit">Submit</button>
-            </form>
-            <form id="answer">
-              <input id="answerInput" type="text" placeholder="Jurusan" required>
-              <button id="buttonAnswer" type="submit"> Submit </button>
-            </form>
+          <form id="formUser">
+            <input id="inputName" type="text" placeholder="Nama" required />
+            <input
+              id="inputGender"
+              type="text"
+              placeholder="Pria/Wanita"
+              required
+            />
+            <input id="inputOld" type="number" placeholder="Usia" required />
+            <button id="buttonSubmit" type="submit">PLAY</button>
+          </form>
+          <form id="answer">
+            <input
+              id="answerInput"
+              type="text"
+              placeholder="Jurusan"
+              required
+            />
+            <button id="buttonAnswer" type="submit">Submit</button>
+          </form>
 
           <ul id="question">
             <li>A. Lorem ipsum dolor sit amet.</li>
@@ -36,14 +63,11 @@
           </ul>
         </article>
         <div class="wrapper-img">
-          <img id="imgCharacter"
-          src=""
-          alt=""
-        />
-        <div class="wrapper-button">
-          <button id="buttonSpeed">Speed</button>
-          <button id="buttonNext">Next</button>
-        </div>
+          <img id="imgCharacter" src="" alt="" />
+          <div class="wrapper-button">
+            <button id="buttonSpeed">Speed</button>
+            <button id="buttonNext">Next</button>
+          </div>
         </div>
       </section>
       <section id="sectionDialog" class="dialog">
@@ -51,12 +75,22 @@
         <p id="typed" class="text-dialog"></p>
       </section>
     </main>
+    <h3>
+      Support:
+      <a href="https://saweria.co/FutureArly" target="_blank"
+        >Saweria FutureArly</a
+      >
+    </h3>
     <audio id="bgm" controls autoplay loop>
-      <source id="bgmChange" src="" type="audio/mpeg">
+      <source id="bgmChange" src="" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
     <audio id="audioClick">
-      <source src="/assets/click.mp3" type="audio/mpeg">
+      <source src="/assets/click.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <audio id="audioObject">
+      <source id="soundObject" src="/assets/bell.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
     <script src="main.js"></script>
