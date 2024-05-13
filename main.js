@@ -125,6 +125,7 @@ answer.addEventListener("submit", function (e) {
           dialog: `Semoga kamu suka ya`,
           character: "/assets/wanita.png",
           bg: "/assets/familyroom.jpg",
+          pertanyaan: ["Kenapa cuman teh", "Terimaksih, aku suka kok", "Ini teh atau kehidupan sih. PAHIT BANGET"],
           })
         break; // Menghentikan looping setelah ditemukan kata yang sesuai
     }
@@ -137,6 +138,47 @@ answer.addEventListener("submit", function (e) {
         character: "/assets/ayah.png",
         bg: "/assets/familyroom.jpg",
       })
+       dialogData.push({
+        dialog: `Tetapi tidak apa-apa, kamu harus kembangin skill kamu yang lainnya ya`,
+        character: "/assets/ayah.png",
+        bg: "/assets/familyroom.jpg",
+      })
+      dialogData.push({
+        dialog: `Nak, tolong buatkan teh untuk ${name}`,
+        character: "/assets/ayah.png",
+        bg: "/assets/familyroom.jpg",
+      })
+      dialogData.push({
+        dialog: `Iya Ayah ini lagi dibuat`,
+        character: "/assets/wanita.png",
+        bg: "/assets/kitchen.jpg",
+        })
+        dialogData.push({
+          dialog: `"Ting.. Ting.. Ting.." (Menagaduk Teh)`,
+          character: "/assets/wanita.png",
+          bg: "/assets/kitchen.jpg",
+          })
+        dialogData.push({
+          dialog: `Selesai`,
+          character: "/assets/wanita.png",
+          bg: "/assets/kitchen.jpg",
+          })
+        dialogData.push({
+          dialog: `ini Tehnya`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+          })
+        dialogData.push({
+          dialog: `Silahkan diminum ${name}`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+          })
+        dialogData.push({
+          dialog: `Semoga kamu suka ya`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+          pertanyaan: ["Kenapa cuman teh", "Terimaksih, aku suka kok", "Ini teh atau kehidupan sih. PAHIT BANGET"],
+        })
       break; // Menghentikan looping setelah ditemukan kata yang sesuai
     }
   }
@@ -190,19 +232,25 @@ function dialogDua() {
   if (i == 5) {
     bgm.src = "/assets/familyRoom.mp3";
     bgm.load();
-    characterName.innerText = character[1];
   } else if(i == 8){
     buttonNext.style.display = "none"
   }
 
   // Mengubah nama charcter di Dialog
-  if(i == 0 || i == 12){
+  if(dialogData[i].character == "/assets/wanita.png"){
     characterName.innerText = character[0];
-  } else if(i == 16) {
+  } else if(dialogData[i].character == "/assets/ayah.png") {
     characterName.innerText = character[1];
+  } else if(dialogData[i].character == ""){
+    characterName.innerHTML ="";
   }
 
-
+  // Mengubah Tema 
+  if(dialogData[i].bg == ""){
+    document.querySelector(".latar").style.background = "#fff"
+  } else{
+    document.querySelector(".latar").style.background = "none"
+  }
 
   // memunculkan object
   if(i == 14){
@@ -249,7 +297,7 @@ question.addEventListener("click", function (e) {
       const { name, gender, old, jawaban } = user;
       if(jawaban == "A. Mager"){
         dialogData.push({
-          dialog: `Ga sopan kali kau`,
+          dialog: `Ga sopan kali kamu`,
           character: "/assets/ayah.png",
           bg: "/assets/familyroom.jpg",
         });
@@ -257,7 +305,7 @@ question.addEventListener("click", function (e) {
       } else if (jawaban == "B. Ga Ada kendaraan" 
       || jawaban == "C. Belum dapat waktu yang pas"){
         dialogData.push({
-          dialog: `Alasan saja, Emangnya kamu Kuliah atau Bekerja?`,
+          dialog: `Alasan saja, kamu kegiatannya apa sekarang?`,
           character: "/assets/ayah.png",
           bg: "/assets/familyroom.jpg",
           pertanyaan: ["Kuliah", "Kerja", "Pengagguran"],
@@ -286,6 +334,73 @@ question.addEventListener("click", function (e) {
           bg: "/assets/familyroom.jpg",
         });
         gameOver(2500)
+      }
+
+      if(jawaban == "A. Kenapa cuman teh"){
+        dialogData.push({
+          dialog: `Kamu ga tau tata keramah ya. Mending kamu pergi sana. JAUHI ANAK SAYA`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        gameOver(2500);
+      }
+     else if(jawaban == "B. Terimaksih, aku suka kok"){
+        dialogData.push({
+          dialog: `Aku senang kamu suka`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Ibu kemana?`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Ibu kepasar yah, karena tau ${name}
+          mau datang kerumah jadinya ibu belanja bahan masakan untuk makan malam kita`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Nantinya aku akan bantu ibu untuk masak`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Ayah nanti lagi ya tanya tanya ${name}nya. Aku mau ajak dia ke taman kita`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Iya oke, nanti kalau ibu udah pulang, balik kerumah lagi yaa`,
+          character: "/assets/ayah.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Okee... Ayah. Yuk.. ${name}`,
+          character: "/assets/wanita.png",
+          bg: "/assets/familyroom.jpg",
+        });
+        dialogData.push({
+          dialog: `Menuju ketaman`,
+          character: "",
+          bg: "",
+        });
+        dialogData.push({
+          dialog: `Sampai Di taman`,
+          character: "",
+          bg: "/assets/taman.jpg",
+        });
+        dialogData.push({
+          dialog: `Maaf ya ${name} ayah banyak tanya`,
+          character: "/assets/wanita.png",
+          bg: "/assets/taman.jpg",
+        });
+        dialogData.push({
+          dialog: `Aku senang akhirnya dua orang laki-laki yang aku sayang dapat saling mengenal`,
+          character: "/assets/wanita.png",
+          bg: "/assets/taman.jpg",
+        });
       }
       i++;
       dialogDua();
